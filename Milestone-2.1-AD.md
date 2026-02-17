@@ -33,7 +33,7 @@ This milestone builds on the existing architecture from Milestone 1. The goal is
 
 9. After the VM powers off, edit the VM settings in ESXi. Change the CD/DVD drive to "Host Device." Verify the network adapter MAC address is set to "Automatic." If it shows a hardcoded MAC, remove and re-add the network adapter. Take a snapshot named "Base."
 
-![ESXi Host Client showing the WinServer19 VM with the Base snapshot successfully created. VM specs show 2 vCPUs, 4 GB RAM, 90 GB HDD, VMware Tools installed, and MAC address set to Automatic.](Screenshot_2026-02-03_201335.png)
+<img src="https://github.com/user-attachments/assets/0eef42de-d5a4-4ef8-8b66-dd51c5eada13" />
 
 This Base snapshot is your clean Windows Server 2019 image. Keep it for future deployment labs. From here, continue using this VM to set up DC1.
 
@@ -53,11 +53,11 @@ This Base snapshot is your clean Windows Server 2019 image. Keep it for future d
 
     Restart the VM for the name change to take effect.
 
-![PowerShell showing the Rename-Computer command with a warning that changes take effect after restart.](Screenshot_2026-02-03_202300.png)
+<img src="https://github.com/user-attachments/assets/f024eb69-ffeb-4d0f-b891-f23528db2c85" />
 
 12. Verify the network configuration is correct before proceeding with the AD setup.
 
-![Network Connection Details showing IPv4 address 10.0.17.4, subnet 255.255.255.0, gateway 10.0.17.2, and DNS 10.0.17.2.](Screenshot_2026-02-03_202315.png)
+<img src="https://github.com/user-attachments/assets/9aa04dae-a756-4b0d-8d1e-d6a10f157853" />
 
 ## AD Configuration via SSH from Xubuntu
 
@@ -143,7 +143,7 @@ Run the following commands to confirm everything is configured correctly.
     Get-ADDomain
     ```
 
-![Get-ADDomain output showing the dylan.local forest, dc01.dylan.local as PDCEmulator, InfrastructureMaster, and RIDMaster, with DomainMode set to Windows2016Domain.](Screenshot_2026-02-03_210545.png)
+<img src="https://github.com/user-attachments/assets/b5fca2aa-4428-457f-9552-c39776b46044" />
 
 22. Verify DNS records and DHCP scope:
 
@@ -152,12 +152,13 @@ Run the following commands to confirm everything is configured correctly.
     Get-DhcpServerv4Scope
     ```
 
-![DNS records for dylan.local showing A records for 480-fw, dc01, vcenter, and xubuntu-wan, along with SRV records for AD services. DHCP scope 480-WAN-Scope is active with range 10.0.17.101 to 10.0.17.150.](Screenshot_2026-02-03_210604.png)
+<img src="https://github.com/user-attachments/assets/28407001-fcf7-4cce-baf7-334f0584f8a3" />
 
 23. Verify the domain admin user was created:
 
     ```
     Get-ADUser -Filter *
     ```
+    
+<img src="https://github.com/user-attachments/assets/c6459adc-bbc0-40c9-b5fd-74a746001365" />
 
-![Get-ADUser output showing Administrator (enabled), Guest (disabled), krbtgt (disabled), and dylan-adm with UPN dylan-adm@dylan.local.](Screenshot_2026-02-03_210630.png)
