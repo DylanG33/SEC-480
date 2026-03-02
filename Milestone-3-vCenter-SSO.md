@@ -4,7 +4,7 @@ This milestone continues from Milestone 2.2 where vCenter was deployed. The goal
 
 ## NTP Time Synchronization
 
-Before joining vCenter to the domain, it is critical that all systems in the environment are syncing to the same NTP time source. Time drift between vCenter and the domain controller will cause the AD join and SSO authentication to fail.
+Before joining vCenter to the domain, it is really important that all systems in the environment are syncing to the same NTP time source. 
 
 ### Configuring NTP on dc01
 
@@ -31,7 +31,7 @@ w32tm /query /peers
 
 The output should show that the source is syncing from pool.ntp.org and that the peer state is active. The stratum value of 1 indicates a primary reference synced by radio clock, and the last successful sync time confirms the service is working correctly.
 
-<img src="https://github.com/user-attachments/assets/Screenshot_2026-02-18_103448.png" />
+<img src="https://github.com/user-attachments/assets/dd70d0ab-4f00-49b6-9be7-25f679d781a4" />
 
 ### Verifying NTP on ESXi
 
@@ -51,12 +51,12 @@ With time synchronized across the environment, vCenter can now be joined to the 
 
 3. Click **Join AD** and enter the following:
    - Domain: `dylan.local`
-   - Username: `dylan-adm` (or the full UPN `dylan-adm@dylan.local`)
+   - Username: `dylan-adm`
    - Password: your domain admin password
 
-4. After the domain join completes successfully, reboot the vCenter Server through the management interface at `https://vcenter.dylan.local:5480`. Do not power off the VM directly — use the management portal's reboot option to ensure a clean restart of all vCenter services.
+4. After the domain join completes successfully, reboot the vCenter Server through the management interface at `https://vcenter.dylan.local:5480`. Do not power off the VM directly, use the management portal's reboot option
 
-5. Wait for vCenter to fully come back online. This can take several minutes as all services restart.
+5. Wait for vCenter to fully come back online
 
 ## Adding the AD Identity Source
 
@@ -68,13 +68,13 @@ After the reboot, the dylan.local domain needs to be added as an identity source
 
    Before adding the AD identity source, the page shows two existing sources: the System Domain (dylan.local for the SSO domain) and the Local OS (Default).
 
-<img src="https://github.com/user-attachments/assets/Screenshot_2026-02-18_105405.png" />
+<img src="https://github.com/user-attachments/assets/b952871c-5f5e-454f-b6e1-0ffe65f4bda0" />
 
 3. Click **ADD** to add a new identity source. Select **Active Directory (Integrated Windows Authentication)** as the type. The domain should auto-populate as `dylan.local`. Click Add.
 
 4. After adding the identity source, the Identity Sources list now shows three items: the System Domain (vsphere.local), the Local OS (Default), and the newly added dylan.local entry with type "Active Directory (Integrated Windows Authentication)" and alias "DYLAN."
 
-<img src="https://github.com/user-attachments/assets/Screenshot_2026-02-18_131240.png" />
+<img src="https://github.com/user-attachments/assets/eae2b263-08c7-40af-be66-95e0d2fa2b56" />
 
 5. Optionally, select the dylan.local identity source and click **SET AS DEFAULT** to make it the default authentication domain. This means users can log in with just `dylan-adm` instead of needing to specify `dylan-adm@dylan.local` every time.
 
@@ -93,7 +93,7 @@ With the AD identity source added, the dylan.local Domain Admins group needs to 
    - `domain admins`
    - `dylan-adm`
 
-<img src="https://github.com/user-attachments/assets/Screenshot_2026-02-18_131213.png" />
+<img src="https://github.com/user-attachments/assets/4aa95908-2734-4df2-80dc-169dd89ba5c0" />
 
 5. Click **Save** to apply the changes. The dylan.local domain admins now have full administrative access to vCenter.
 
@@ -105,16 +105,7 @@ With the AD identity source added, the dylan.local Domain Admins group needs to 
 
 3. After logging in, verify the login by checking the username displayed in the upper right corner of the vSphere Client. It should show `dylan-adm@DYLAN.LOCAL`.
 
-<img src="https://github.com/user-attachments/assets/Screenshot_2026-02-18_131133.png" />
+<img src="https://github.com/user-attachments/assets/e3b91757-e86c-412d-84b2-d7b557ebf0ae" />
 
 The vSphere Client displays the full vCenter inventory including vcenter.dylan.local, the 480-dylan datacenter, the ESXi host at 192.168.3.227, and all VMs (480-fw, vcenter, WinServer19, xubuntu-wan). The vCenter Details panel confirms version 8.0.0 with 1 host and 4 virtual machines. This confirms that the dylan-adm domain admin account has full administrative access to vCenter through the AD SSO integration.
 
-## Summary
-
-At the end of this milestone, the following has been accomplished:
-
-- NTP is synchronized across dc01, ESXi, and vCenter using pool.ntp.org
-- vCenter has been joined to the dylan.local Active Directory domain
-- The dylan.local AD identity source has been added to vCenter SSO using Integrated Windows Authentication
-- The dylan.local Domain Admins group and dylan-adm user have been added to the vCenter Administrators group
-- The named domain admin account (dylan-adm@DYLAN.LOCAL) can successfully log into vCenter with full administrative access
