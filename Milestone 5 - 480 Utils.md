@@ -22,7 +22,7 @@ git clone https://github.com/DylanG33/SEC-480.git
 cd ./SEC-480/
 ```
 
-<img src="https://github.com/user-attachments/assets/a1d37b76-eebd-4d4a-bd9b-f6a9d04c227f" />
+<img src="https://github.com/user-attachments/assets/6b6af0fb-400e-4fbc-8287-18842d5ea48b" />
 
 ---
 
@@ -38,7 +38,7 @@ function 480banner() {
 }
 ```
 
-<img src="https://github.com/user-attachments/assets/97f29140-d2c5-4748-a712-8cc2b3677810" />
+<img src="https://github.com/user-attachments/assets/be04ca2f-41e7-4273-9652-de4220aeccce" />
 
 ---
 
@@ -53,7 +53,7 @@ $env:PsModulePath = $env:PsModulePath + ":/home/dylan-george/SEC-480/modules"
 
 - Reloaded PowerShell and verified the path was set by running `$env:PsModulePath`
 
-<img src="https://github.com/user-attachments/assets/343a847c-51ad-4353-aeae-04041cbdc26d" />
+<img src="https://github.com/user-attachments/assets/1818fac3-81b1-4c5b-8207-7d7c21b914ea" />
 
 - Force-imported the module and tested the banner function:
 
@@ -64,7 +64,7 @@ Import-Module "/home/dylan-george/SEC-480/modules/480-utils" -Force
 
 Output: `Wassup its DG` 
 
-<img src="https://github.com/user-attachments/assets/93d081e7-fd30-4ed7-b6aa-71793b7669b5" />
+<img src="https://github.com/user-attachments/assets/6ab711ca-e719-4f96-88ac-a74e3e466dad" />
 
 ---
 
@@ -119,4 +119,4 @@ git push
 
 - Confirmed push was successful: `main -> main`
 
-<img src="https://github.com/user-attachments/assets/4f2bf7f0-0172-46eb-b401-5d6263cab309" />
+<img src="https://github.com/user-attachments/assets/838e125f-bb30-406f-a765-4b6f81a8fbe0" />
