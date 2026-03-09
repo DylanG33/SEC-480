@@ -49,7 +49,7 @@ Set-Network
 ```
 ---
 
-## Part 5 - Ansible Setup (6.3)
+## Ansible Setup
 
 ### Install
 - Updated apt and installed ansible on xubuntu-wan:
