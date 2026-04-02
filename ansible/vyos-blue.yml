@@ -1,0 +1,32 @@
+---
+- name: Configure blue27-fw VyOS firewall
+  hosts: blue27-fw
+  gather_facts: false
+
+  vars:
+    wan_ip: "10.0.17.200"
+    lan_ip: "10.0.5.2"
+    hostname: "blue27-fw"
+    gateway: "192.168.3.250"
+    nameserver: "192.168.4.5"
+    network: "10.0.17.0/24"
+
+  vars_prompt:
+    - name: new_password
+      prompt: "Enter new VyOS password"
+      private: yes
+
+  tasks:
+    - name: Generate sha512 password hash
+      set_fact:
+        password_hash: "{{ new_password | password_hash('sha512') }}"
+
+    - name: Copy rendered config.boot to VyOS
+      become: yes
+      template:
+        src: templates/config.boot.j2
+        dest: /config/config.boot
+
+    - name: Reboot the firewall
+      become: yes
+      shell: "sleep 2 && reboot"
