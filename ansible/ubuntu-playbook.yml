@@ -1,0 +1,30 @@
+---
+- name: Post provisio Ubuntu servers
+  hosts: ubuntu
+  become_method: sudo
+  become_flags: '-S'
+
+  tasks:
+    - name: Add deployer public key
+      authorized_key:
+        user: deployer
+        state: present
+        key: "{{ lookup('file', '~/.ssh/deployer.pub') }}"
+
+    - name: Set hostname
+      become: yes
+      hostname:
+        name: "{{ hostname }}"
+
+    - name: Deploy netplan config
+      become: yes
+      template:
+        src: templates/netplan.j2
+        dest: /etc/netplan/01-netcfg.yaml
+        mode: '0600'
+
+    - name: Reboot
+      become: yes
+      shell: "sleep 5 && shutdown -r now"
+      async: 1
+      poll: 0

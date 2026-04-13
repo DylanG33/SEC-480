@@ -1,0 +1,24 @@
+---
+- name: COnfigure DHCP for blue27-fw
+  hosts: vyos
+  gather_facts: false
+  connection: network_cli
+
+  vars:
+    ansible_network_os: vyos
+
+  tasks:
+    - name: DHCP
+      vyos.vyos.vyos_config:
+        lines:
+          - set service dhcp-server global-parameters 'local-address {{ lan_ip }};'
+          - set service dhcp-server shared-network-name {{ network_name }} authoritative
+          - set service dhcp-server shared-network-name {{ network_name }} subnet {{ subnet}} default-router '{{ lan_ip }}'
+          - set service dhcp-server shared-network-name {{ network_name }} subnet {{ subnet}} domain-name '{{ domain }}'
+          - set service dhcp-server shared-network-name {{ network_name }} subnet {{ subnet}} lease '{{ lease }}'
+          - set service dhcp-server shared-network-name {{ network_name }} subnet {{ subnet}} name-server '{{ nameserver }}'
+          - set service dhcp-server shared-network-name {{ network_name }} subnet {{ subnet}} range {{ network_name }}-POOL start '{{ dhcp_start }}'
+          - set service dhcp-server shared-network-name {{ network_name }} subnet {{ subnet}} range {{ network_name }}-POOL stop '{{ dhcp_stop }}'
+        save: true
+
+

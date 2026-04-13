@@ -1,0 +1,55 @@
+all:
+  children:
+    vyos:
+      hosts:
+        blue27-fw:
+          ansible_host: 10.0.17.200
+          ansible_user: vyos
+          ansible_password: vyos
+          lan_ip: "10.0.5.2"
+          subnet: "10.0.5.0/24"
+          lease: "86400"
+          nameserver: "10.0.5.5"
+          domain: "blue27.local"
+          dhcp_start: "10.0.5.75"
+          dhcp_stop: "10.0.5.125"
+          network_name: "blue27"
+    rocky:
+      hosts:
+        rocky-1:
+          ansible_host: 10.0.5.11
+          ansible_user: deployer
+          ansible_ssh_private_key_file: ~/.ssh/deployer
+          ansible_become_password: "Towerhill0!"
+          static_ip: "10.0.5.10"
+          hostname: "rocky-1"
+        rocky-2:
+          ansible_host: 10.0.5.10
+          ansible_user: deployer
+          ansible_ssh_private_key_file: ~/.ssh/deployer
+          ansible_become_password: "Towerhill0!"
+          static_ip: "10.0.5.11"
+          hostname: "rocky-2"
+        rocky-3:
+          ansible_host: 10.0.5.12
+          ansible_user: deployer
+          ansible_ssh_private_key_file: ~/.ssh/deployer
+          ansible_become_password: "Towerhill0!"
+          static_ip: "10.0.5.12"
+          hostname: "rocky-3"
+    ubuntu:
+      hosts:
+        ubuntu-1:
+          ansible_host: 10.0.5.78
+          ansible_user: deployer
+          ansible_ssh_private_key_file: ~/.ssh/deployer
+          ansible_become_password: "Towerhill0!"
+          static_ip: "10.0.5.30"
+          hostname: "ubuntu-1"
+        ubuntu-2:
+          ansible_host: 10.0.5.79
+          ansible_user: deployer
+          ansible_ssh_private_key_file: ~/.ssh/deployer
+          ansible_become_password: "Towerhill0!"
+          static_ip: "10.0.5.31"
+          hostname: "ubuntu-2"
